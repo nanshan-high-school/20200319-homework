@@ -2,41 +2,28 @@
 using namespace std;
 
 int main() {
-    int n,d[100001],s[100001],t[100001],last1[6],number;
-    int day[6] = {0,1,2,3,4,5},last2[6] = {};
+    int videos[51] = {0},n,p[51],l[51],w[51],r[51],num;
+    char s[51][16] = {0};
 
     cin >> n;
 
     for(int i = 1; i <= n; i++){
-        cin >> d[i] >> s[i] >> t[i];
+        cin >> s[i] >> p[i] >> l[i] >> w[i] >> r[i];
+        videos[i] = (p[i] * w[i] * r[i] / l[i]);
     }
 
-    for(int j = 1; j <= 5; j++){
-        last1[j] = 11;
+    bool whther[51] = {};
+    
+    for(int j = 1; j <= n; j++){
+        num = 0;
         for(int i = 1; i <= n; i++){
-            if(d[i] == day[j] && t[i] < last1[j]){
-                last1[j] = t[i];
-            }
-        }
-        if(last1[j] != 11){
-            last2[j] = last1[j];
-            number++;
-        }
-    }
-
-    for(int k = 1; k <= 9; k++){
-        for(int j = 1; j <= 5; j++){
-            last1[j] = 11;
-            for(int i = 1; i <= n; i++){
-                if(d[i] == day[j] && t[i] > last2[j] && t[i] < last1[j] && s[i] >= last2[j]){
-                    last1[j] = t[i];
+            if(whther[i] == false){
+                if(videos[i] > videos[num]){
+                    num = i;
                 }
             }
-            if(last1[j] > last2[j] && last1[j] != 11){
-                last2[j] = last1[j];
-                number++;
-            }
         }
+        whther[num] = true;
+        cout << s[num] << "\n";
     }
-    cout << number;
 }
