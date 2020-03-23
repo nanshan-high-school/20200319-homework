@@ -36,5 +36,5 @@ int main() {
         cout << "night";
     } else {
         cout << "early morning";
-    }
+    } 
 }
