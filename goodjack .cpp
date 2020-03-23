@@ -2,34 +2,25 @@
 using namespace std;
 
 int main() {
-    int d,divisor,num,number;
-    cin >> d;
-    cout << "\n";
-    for(int i = 1; i <= d; i++){
-        num = number;
-        divisor = 10000000;
-
-        cin >> number;
-        num = number;
-
-        bool whther = true;
-
-        while(num > 0){
-            for(int j = 2; j <= 5477; j++){
-                if(j * j > num){
-                    break;
-                }else if(num % j == 0){
-                    whther = false;
-                }
-            }
-            num %= divisor;
-            divisor /= 10;
-        }
-
-        if(whther == false){
-            cout << number << " isn't a Prime Day!\n";
-        }else if(whther == true){
-            cout << number << " is a Prime Day!\n";
+    int n,h = 0,w = 0,f[46] = {0,1,1};
+    cin >> n;
+    for(int i = 3; i <= n; i++){
+        f[i] = f[i - 1] + f[i - 2];
+    }
+    if(n % 2 == 0){
+        h = f[n];
+    }else{
+        for(int i = 1; i <= n; i += 2){
+            h += f[i];
         }
     }
+    if(n % 2 != 0){
+        w = f[n];
+    }else{
+        w +=f[1];
+        for(int i = 2; i <= n; i += 2){
+            w += f[i];
+        }
+    }
+    cout << h << ":" << w;
 }
