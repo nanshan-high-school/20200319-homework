@@ -2,25 +2,23 @@
 using namespace std;
 
 int main() {
-    int n,h = 0,w = 0,f[46] = {0,1,1};
+    int n,a[8],b[8],c[8];
     cin >> n;
-    for(int i = 3; i <= n; i++){
-        f[i] = f[i - 1] + f[i - 2];
+    for(int i = 1; i <= n; i++){
+        cin >> a[i] >> b[i] >> c[i];
     }
-    if(n % 2 == 0){
-        h = f[n];
-    }else{
-        for(int i = 1; i <= n; i += 2){
-            h += f[i];
+    bool empty = {true};
+    for(int i = 1; i <= n; i++){
+        empty = false;
+        for(int j = 1; j <= 500; j++){
+            if(a[i] < j && j < b[i] && j % c[i] != 0){
+                cout << j << " ";
+                empty = true;
+            }
         }
-    }
-    if(n % 2 != 0){
-        w = f[n];
-    }else{
-        w +=f[1];
-        for(int i = 2; i <= n; i += 2){
-            w += f[i];
+        if(empty == false){
+            cout << "No free parking spaces.";
         }
+        cout << "\n";
     }
-    cout << h << ":" << w;
 }
