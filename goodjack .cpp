@@ -2,36 +2,23 @@
 using namespace std;
 
 int main() {
-    int N1;
-    int N2;
-    cin >> N1;
-
-    int M[1001] = {0};
-    long long C;
-    int P;
-
-    for(int i = 0; i < N1; i++){
-        cin >> P;
-        cin >> C;
-        M[P] += C;
+    int n,grade[3] = {'4','6','8'};
+    cin >> n;
+    char s[100][11] = {0},id[100][10] = {0},college[10] = {"AEHILMOST"};
+    for(int i = 0; i < n; i++){
+        cin >> id[i] >> s[i];
     }
-
-    cin >> N2;
-
-    for(int i = 0; i < N2; i++){
-        cin >> P;
-        cin >> C;
-        M[P] += C;
-    }
-    int flag = 0;
-    for(int i = 1000 ;i >= 0; i--){
-        if(M[i] != 0){
-            cout << i << ":" << M[i] << "\n";
-        } else {
-            flag = 1;
+    bool already[100] = {false}; 
+    for(int i = 0; i < 9; i++){
+        for(int j = 0; j < 3; j++){
+            for(int k = 0; k < n; k++){
+                if(already[k] == false){
+                    if(id[k][8] == college[i] && id[k][0] == grade[j]){
+                        cout << id[k][8] << ": " << s[k] << "\n";;
+                        already[k] = true;
+                    }
+                }
+            }
         }
-    }
-    while (flag == 0){
-        cout << "NULL!";
     }
 }
