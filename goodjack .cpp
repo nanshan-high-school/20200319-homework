@@ -2,28 +2,35 @@
 using namespace std;
 
 int main() {
-    int videos[51] = {0},n,p[51],l[51],w[51],r[51],num;
-    char s[51][16] = {0};
+    char c = '\0',bitmap[63][63] = {0};
+    int n,m,bit;
+    long long s,num;
 
-    cin >> n;
+    cin >> n >> m >> c;
 
-    for(int i = 1; i <= n; i++){
-        cin >> s[i] >> p[i] >> l[i] >> w[i] >> r[i];
-        videos[i] = (p[i] * w[i] * r[i] / l[i]);
+    for (int i = 1; i <= n; i++){
+        num = 2305843009213694000;
+        bit = 62;
+        cin >> s;
+        while(bit > 0){
+            if(s >= num){
+                s -= num;
+                bitmap[i][bit] = 1;
+            }else if(s < num){
+                bitmap[i][bit] = 2;
+            }
+            num /= 2;
+            bit--;
+        }
     }
-
-    bool whther[51] = {};
-    
-    for(int j = 1; j <= n; j++){
-        num = 0;
-        for(int i = 1; i <= n; i++){
-            if(whther[i] == false){
-                if(videos[i] > videos[num]){
-                    num = i;
-                }
+    for(int i = 1; i <= n; i++){
+        for(int j = 1; j <= m; j++){
+            if (bitmap[i][j] == 1){
+                cout << c << ' ';
+            }else if(bitmap[i][j] == 2){
+                cout << ". ";
             }
         }
-        whther[num] = true;
-        cout << s[num] << "\n";
+        cout << "\n";
     }
 }
