@@ -2,26 +2,34 @@
 using namespace std;
 
 int main() {
-    int b,p,n,m,busStop[1001] = {0},x,y,most = 0,least = 1;
-    cin >> b >> p;
-    for(int i = 1; i <= p; i++){
-        cin >> x >> y;
-        if(x > y){
-            for(int j = y; j <= x; j++){
-                busStop[j]++;
+    int d,divisor,num,number;
+    cin >> d;
+    cout << "\n";
+    for(int i = 1; i <= d; i++){
+        num = number;
+        divisor = 10000000;
+
+        cin >> number;
+        num = number;
+
+        bool whther = true;
+
+        while(num > 0){
+            for(int j = 2; j <= 5477; j++){
+                if(j * j > num){
+                    break;
+                }else if(num % j == 0){
+                    whther = false;
+                }
             }
-        }else if(x < y){
-            for(int k = x; k <= y; k++){
-                busStop[k]++;
-            }
+            num %= divisor;
+            divisor /= 10;
+        }
+
+        if(whther == false){
+            cout << number << " isn't a Prime Day!\n";
+        }else if(whther == true){
+            cout << number << " is a Prime Day!\n";
         }
     }
-    for(int i = 1; i <= b; i++){
-        if(busStop[i] >= busStop[most]){
-            most = i;
-        }else if(busStop[i] < busStop[least]){
-            least = i;
-        }
-    }
-    cout << least << " " << most;
 }
