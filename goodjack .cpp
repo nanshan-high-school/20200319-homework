@@ -1,24 +1,52 @@
 #include <iostream>
 using namespace std;
 
-int main() {
-    int n,grade[3] = {'4','6','8'};
-    cin >> n;
-    char s[100][11] = {0},id[100][10] = {0},college[10] = {"AEHILMOST"};
-    for(int i = 0; i < n; i++){
-        cin >> id[i] >> s[i];
+int main(){
+    int map[101][101] = {0} , change[101][101] = {0} , n , m , changeAdd[101][101] = {0};
+
+    cin >> n >> m;
+    for(int i = 1; i <= n; i++){
+        for(int j = 1; j <= m; j++){
+            cin >> map[i][j];
+        }
     }
-    bool already[100] = {false}; 
-    for(int i = 0; i < 9; i++){
-        for(int j = 0; j < 3; j++){
-            for(int k = 0; k < n; k++){
-                if(already[k] == false){
-                    if(id[k][8] == college[i] && id[k][0] == grade[j]){
-                        cout << id[k][8] << ": " << s[k] << "\n";;
-                        already[k] = true;
-                    }
+    for(int i = 1; i <= n; i++){
+        for(int j = 1; j <= m; j++){
+            cin >> change[i][j];
+        }
+    }
+    for(int a = 1; a <= n; a++){
+        for(int b = 1; b <= m; b++){
+            for(int d = 1; d <= m; d++){
+                changeAdd[a][b] += change[a][d];
+            }
+        }
+    }
+    for(int a = 1; a <= n; a++){
+        for(int b = 1; b <= m; b++){
+            for(int c = 1; c <= n; c++){
+                changeAdd[a][b] += change[c][b];
+            }
+            changeAdd[a][b] -= change[a][b];
+        }
+    }
+    for(int i = 1; i <= n; i++){
+        for(int j = 1; j <= m; j++){
+            if (map[i][j] == 1){
+                if (changeAdd[i][j] % 2 == 1){
+                    map[i][j] = 0;
+                }
+            }else if (map[i][j] == 0){
+                if (changeAdd[i][j] % 2 == 1){
+                    map[i][j] = 1;
                 }
             }
         }
+    }
+    for(int i = 1; i <= n; i++){
+        for(int j = 1; j <= m; j++){
+            cout << map[i][j];
+        }
+        cout << "\n";
     }
 }
