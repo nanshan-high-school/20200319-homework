@@ -2,38 +2,26 @@
 using namespace std;
 
 int main() {
-    int n,t,number[11][11] = {0},AND[11] = {0},OR[11] = {0},XOR[11] = {0};
-    cin >> n >> t;
-    for(int i = 1; i <= n; i++){
-        for(int j = 1; j <= t; j++){
-            cin >> number[i][j];
-            AND[j] += number[i][j];
-            OR[j] += number[i][j];
-            XOR[j] += number[i][j];
+    int b,p,n,m,busStop[1001] = {0},x,y,most = 0,least = 1;
+    cin >> b >> p;
+    for(int i = 1; i <= p; i++){
+        cin >> x >> y;
+        if(x > y){
+            for(int j = y; j <= x; j++){
+                busStop[j]++;
+            }
+        }else if(x < y){
+            for(int k = x; k <= y; k++){
+                busStop[k]++;
+            }
         }
     }
-    cout << "\nAND: ";
-    for(int j = 1; j <= t; j++){
-        if(AND[j] == n){
-            cout << "1 ";
-        }else if(AND[j] != n){
-            cout << "0 ";
+    for(int i = 1; i <= b; i++){
+        if(busStop[i] >= busStop[most]){
+            most = i;
+        }else if(busStop[i] < busStop[least]){
+            least = i;
         }
     }
-    cout << "\n OR: ";
-    for(int j = 1; j <= t; j++){
-        if(OR[j] > 0){
-            cout << "1 ";
-        }else if(OR[j] <= 0){
-        cout << "0 ";
-        }
-    }
-    cout << "\nXOR: ";
-    for(int j = 1; j <= t; j++){
-        if(XOR[j] % 2 == 1){
-            cout << "1 ";
-        }else if(XOR[j] % 2 == 0){
-            cout << "0 ";
-        }
-    }
+    cout << least << " " << most;
 }
