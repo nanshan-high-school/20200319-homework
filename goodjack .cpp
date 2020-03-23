@@ -2,21 +2,48 @@
 using namespace std;
 
 int main() {
-    int n,s,cp[51] = {0},iv[51] = {0},upgrade,best = 0;
-    cin >> n >> s;
-    upgrade = s / 1000;
-    for(int i = 1; i <= n; i++){
-        cin >> cp[i] >> iv[i];
-        if(iv[i] >= 0 && iv[i] <= 29){
-            cp[i] += 10 * upgrade;
-        }else if(iv[i] >= 30 && iv[i] <= 39){
-            cp[i] += 50 * upgrade;
-        }else if(iv[i] >= 40 && iv[i] <= 45){
-            cp[i] += 100 * upgrade;
+    int n,h,m,t,p;
+
+    cin >> n;
+    cin >> h >> m;
+
+    int hour[21] = {h};
+    int min[21] = {m};
+
+    for (int i = 1; i <= n; i++){
+        cin >> t;
+        hour[i] = hour[i - 1];
+        min[i] = min[i - 1] + t;
+
+        while (min[i] >= 60){
+            min[i] -= 60;
+            hour[i] += 1;
         }
-        if(cp[i] > cp[best]){
-            best = i;
+
+        while (hour[i] >= 24){
+            hour[i] -= 24;
         }
     }
-    cout << best << " " << cp[best];
+
+    while(n != 0){
+        cin >> p;
+
+        if (p == 0){
+            return 0;
+        }
+
+        cout << "\n";
+
+        if (hour[p] < 10){
+            cout << "0" << hour[p] << ":";
+        } else {
+            cout << hour[p] << ":";
+        }
+
+        if (min [p] < 10){
+            cout << "0" << min [p] << "\n";
+        } else {
+            cout << min [p] << "\n";
+        }
+    }
 }
